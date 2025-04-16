@@ -1,103 +1,119 @@
-import Image from "next/image";
+'use client';
+
+import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const [darkMode, setDarkMode] = useState(true);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [darkMode]);
+
+  const features = [
+    {
+      title: "🔥 Solve Coding Challenges",
+      desc: "Practice problems to improve your coding skills.",
+    },
+    {
+      title: "⚡ Real-time Code Execution",
+      desc: "Instantly run code using Judge0 integration.",
+    },
+    {
+      title: "📈 Track Your Progress",
+      desc: "View solved problems in your personal dashboard.",
+    },
+    {
+      title: "🌙 Light/Dark Mode",
+      desc: "Switch between beautiful themes with one click.",
+    },
+    {
+      title: "🔐 Secure Auth",
+      desc: "Login and Sign Up with JWT-powered NextAuth.",
+    },
+  ];
+
+  return (
+    <main className="min-h-screen bg-gradient-to-b from-white to-blue-50 dark:from-gray-900 dark:to-gray-800 transition-colors duration-300 overflow-x-hidden">
+
+      {/* Nav */}
+      <div className="absolute top-5 right-5 sm:right-10 flex space-x-3 sm:space-x-6 text-sm sm:text-base z-50">
+        <a href="/problems" className="px-3 py-1 rounded-lg text-white bg-gradient-to-r from-blue-500 to-purple-600 shadow-md hover:scale-105 transition-all duration-200">Problems</a>
+        <a href="/login" className="px-3 py-1 rounded-lg text-white bg-gradient-to-r from-green-400 to-blue-500 shadow-md hover:scale-105 transition-all duration-200">Login</a>
+        <a href="/signup" className="px-3 py-1 rounded-lg text-white bg-gradient-to-r from-pink-500 to-red-500 shadow-md hover:scale-105 transition-all duration-200">Sign Up</a>
+        <button onClick={() => setDarkMode(!darkMode)} className="px-3 py-1 rounded-lg text-white bg-gradient-to-r from-gray-600 to-gray-800 shadow-md hover:scale-105 transition-all duration-200">
+          {darkMode ? "Light Mode" : "Dark Mode"}
+        </button>
+      </div>
+
+      {/* Hero */}
+      <section className="flex flex-col items-center justify-center h-screen px-4">
+        <motion.h1
+          initial={{ opacity: 0, y: -30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+          className="text-5xl sm:text-7xl font-bold text-blue-600 dark:text-white glow"
+        >
+          Decode
+        </motion.h1>
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5, duration: 1 }}
+          className="mt-4 text-center text-gray-600 dark:text-gray-300 text-base sm:text-lg"
+        >
+          A place to solve coding challenges and level up your skills.
+        </motion.p>
+      </section>
+
+      {/* Feature Highlights */}
+      <section className="px-6 py-16 bg-white dark:bg-gray-900 space-y-16">
+        {features.map((f, i) => (
+          <motion.div
+            key={f.title}
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: i * 0.2 }}
+            className="max-w-4xl mx-auto bg-gradient-to-r from-blue-100 to-blue-200 dark:from-gray-800 dark:to-gray-700 p-6 rounded-2xl shadow-xl"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+            <h2 className="text-xl sm:text-2xl font-bold text-blue-800 dark:text-white">{f.title}</h2>
+            <p className="text-gray-700 dark:text-gray-300 mt-2">{f.desc}</p>
+          </motion.div>
+        ))}
+      </section>
+
+      {/* Floating BG */}
+      <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
+        <div className="floating-circle bg-blue-300 dark:bg-blue-700 opacity-20 top-1/4 left-10 w-32 h-32" />
+        <div className="floating-circle bg-purple-300 dark:bg-purple-700 opacity-20 top-1/2 right-10 w-24 h-24" />
+        <div className="floating-circle bg-pink-300 dark:bg-pink-600 opacity-20 bottom-10 left-1/3 w-16 h-16" />
+      </div>
+
+      {/* Style */}
+      <style jsx>{`
+        .glow {
+          text-shadow: 0 0 10px rgba(59, 130, 246, 0.7),
+                       0 0 20px rgba(59, 130, 246, 0.5);
+        }
+        .floating-circle {
+          position: absolute;
+          border-radius: 9999px;
+          animation: float 6s ease-in-out infinite;
+        }
+        @keyframes float {
+          0%, 100% {
+            transform: translateY(0px);
+          }
+          50% {
+            transform: translateY(-20px);
+          }
+        }
+      `}</style>
+    </main>
   );
 }
